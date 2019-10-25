@@ -2,6 +2,8 @@ package com.mrk2.flameados;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +17,9 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
     //interface to conect the activity, pd. default code
     private OnFragmentInteractionListener mListener;
@@ -32,6 +32,18 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
     View view;
 
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(ARG_PARAM1 != null){
+            try {
+                showMessage.setText(this.getArguments().getString(ARG_PARAM1));
+            }catch (Exception e){
+                //  Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
     public FragmentLight() {
         // Required empty public constructor
@@ -39,11 +51,10 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
 
 
     // TODO: Rename and change types and number of parameters
-    public static FragmentLight newInstance(String param1, String param2) {
+    public static FragmentLight newInstance(String param1) {
         FragmentLight fragment = new FragmentLight();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +64,6 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -63,13 +73,26 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_fragment_light, container, false);
         controls();
+        events();
         return view;
     }
 
+    private void events() {
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get the text on EditText
+                String string = etMessage.getText().toString();
+                //Send the string to the interface
+                mListener.onFragmentInteraction(string);
+            }
+        });
+    }
+
     private void controls() {
-        btnSend = view.findViewById(R.id.light_frag_btnSend);
-        etMessage = view.findViewById(R.id.light_frag_etMessage);
-        showMessage = view.findViewById(R.id.light_frag_txtMessage);
+        btnSend = view.findViewById(R.id.dark_frag_btnSend);
+        etMessage = view.findViewById(R.id.dark_frag_etMessage);
+        showMessage = view.findViewById(R.id.dark_frag_txtMessage);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -98,6 +121,8 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        //Toast.makeText(FragmentLight.this.getContext(), "entra", Toast.LENGTH_SHORT).show();
+
         /**I have 1 button, so, this method catch all the click event on the fragment, doesn't matter the cuantity of buttons
          *onClick works with an if or a switch comparing ids
          *examples:
@@ -106,14 +131,7 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
                     YOUR OWN ACTIONS
                 break;
          }*/
-        switch (view.getId()){
-            case R.id.light_frag_btnSend:
-                    //get the text on EditText
-                    String string = etMessage.getText().toString();
-                    //Send the string to the interface
-                    mListener.onFragmentInteraction(string);
-                break;
-        }
+
     }
 
     public interface OnFragmentInteractionListener {

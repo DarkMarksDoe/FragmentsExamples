@@ -13,12 +13,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-    public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragmentDark.OnFragmentInteractionListener, FragmentLight.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragmentDark.OnFragmentInteractionListener, FragmentLight.OnFragmentInteractionListener {
 
         boolean light;
         //Declare a variable that gets the text of the LightFragment
-        String message;
+        String message="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,22 @@ import android.view.MenuItem;
                 // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //                        .setAction("Action", null).show();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
                 if(light){
-                    fragmentTransaction.replace(R.id.principalFrame,new FragmentDark());
+                    if(message == null){
+                        fragmentTransaction.replace(R.id.principalFrame,new FragmentDark());
+                    }else{
+                        fragmentTransaction.replace(R.id.principalFrame, FragmentDark.newInstance(message));
+                    }
                 }else{
-                    fragmentTransaction.replace(R.id.principalFrame,new FragmentLight());
+                    if(message == null){
+                        fragmentTransaction.replace(R.id.principalFrame,new FragmentLight());
+                    }else{
+                        fragmentTransaction.replace(R.id.principalFrame, FragmentLight.newInstance(message));
+                    }
                 }
                 fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack(null);
                 light=!light;
 
             }
@@ -83,6 +94,7 @@ import android.view.MenuItem;
 
         @Override
         public void onFragmentInteraction(String text) {
-
+            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+            message = text;
         }
     }

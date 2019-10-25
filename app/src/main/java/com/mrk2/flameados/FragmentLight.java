@@ -10,17 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import javax.microedition.khronos.egl.EGLDisplay;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentLight.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentLight#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentLight extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,12 +21,15 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
+    //interface to conect the activity, pd. default code
     private OnFragmentInteractionListener mListener;
     //Control
 
     EditText etMessage;
     Button btnSend;
     TextView showMessage;
+    //View
+    View view;
 
 
 
@@ -44,14 +37,7 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment ussing the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentLight.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static FragmentLight newInstance(String param1, String param2) {
         FragmentLight fragment = new FragmentLight();
@@ -75,7 +61,15 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_light, container, false);
+        view= inflater.inflate(R.layout.fragment_fragment_light, container, false);
+        controls();
+        return view;
+    }
+
+    private void controls() {
+        btnSend = view.findViewById(R.id.light_frag_btnSend);
+        etMessage = view.findViewById(R.id.light_frag_etMessage);
+        showMessage = view.findViewById(R.id.light_frag_txtMessage);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,21 +98,35 @@ public class FragmentLight extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        /**I have 1 button, so, this method catch all the click event on the fragment, doesn't matter the cuantity of buttons
+         *onClick works with an if or a switch comparing ids
+         *examples:
+         *switch(view.getId()){
+            case R.id.myButton:
+                    YOUR OWN ACTIONS
+                break;
+         }*/
+        switch (view.getId()){
+            case R.id.light_frag_btnSend:
+                    //get the text on EditText
+                    String string = etMessage.getText().toString();
+                    //Send the string to the interface
+                    mListener.onFragmentInteraction(string);
+                break;
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String text);
     }
 }
+/**
+ * Implement a interface View.OnClickListener
+ * Implement the method of the interface
+ * Edit parameters of the interface on onFragmentInteraction according to your necessities
+ * Create the instance of our controls
+ * Create a View
+ * Initialize the view on the method onCreateView
+ * Add the possible events controls on the method onClick()
+ */

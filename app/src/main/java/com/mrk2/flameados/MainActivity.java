@@ -17,6 +17,8 @@ import android.view.MenuItem;
     public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragmentDark.OnFragmentInteractionListener, FragmentLight.OnFragmentInteractionListener {
 
         boolean light;
+        //Declare a variable that gets the text of the LightFragment
+        String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

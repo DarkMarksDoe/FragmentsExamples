@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dark_frag_etMessage"
+        android:id="@+id/light_frag_etMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/dark_frag_btnSend"
+        android:id="@+id/light_frag_btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -50,10 +50,10 @@
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dark_frag_etMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/light_frag_etMessage" />
 
     <TextView
-        android:id="@+id/dark_frag_txtMessage"
+        android:id="@+id/light_frag_txtMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -62,5 +62,5 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dark_frag_btnSend" />
+        app:layout_constraintTop_toBottomOf="@+id/light_frag_btnSend" />
 </androidx.constraintlayout.widget.ConstraintLayout>

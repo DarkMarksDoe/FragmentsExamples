@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Flameados</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message">Hello my nigga</string>
+    <string name="message2">I\'m white boy</string>
+    <string name="text_me_uwu">Text me uwu</string>
+    <string name="send_message">Send Message</string>
+    <string name="text_me_uwu2">Text me uwu x2</string>
+
+</resources>
